@@ -45,9 +45,11 @@ class Floor:
                             t.active = False    
                             t.color = "Dark Gray"
                         case 1:
+                            #100 points
                             t.type = "Good"
                             t.color = "Blue"
                         case 2:
+                            # -1 HP, -100 points
                             t.type = "Bad"
                             t.color = "Red"
                         case 3:
