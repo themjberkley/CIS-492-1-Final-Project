@@ -35,11 +35,11 @@ class Floor:
                     t.active = True
                     t.color = "White"
                 else:
-                    randTile = random.randint(0,7)
+                    randTile = random.randint(0,5)
                     t.visible = False
                     t.active = True    
                     match randTile:
-                        #0 = Neutral, 1 = Good, 2 = Bad, 3 = Lucky, 4 = Super Lucky, 5 = Battle, 6 = Hard Battle, 7 = Rest
+                        #0 = Neutral, 1 = Good, 2 = Bad, 3 = Lucky, 4 = Super Lucky, 5 = Rest
                         case 0:
                             t.type = "Neutral"
                             t.active = False    
@@ -57,12 +57,6 @@ class Floor:
                             t.type = "Super Lucky"
                             t.color = "Gold"
                         case 5:
-                            t.type = "Battle"
-                            t.color = "Orange"
-                        case 6:
-                            t.type = "Hard Battle"
-                            t.color = "Pink"
-                        case 7:
                             t.type = "Rest"
                             t.color = "Cyan"
                 t.pos = pg.Vector2((screen.get_width()/self.size) * col, (((screen.get_height() - yOff)/self.size) * row) + yOff)

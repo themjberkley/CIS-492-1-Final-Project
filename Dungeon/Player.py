@@ -4,8 +4,6 @@ import Floor
 
 class Player:
     HP:int
-    ATK:int
-    DEF:int
     COLOR = "Black"
     pos:pg.Vector2
     posGrid = [] #[y,x]

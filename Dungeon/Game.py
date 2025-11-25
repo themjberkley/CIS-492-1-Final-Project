@@ -11,7 +11,6 @@ import sys
 import Floor
 import Tile
 import Player
-import Enemy
 
 ##Pygame Setup##
 HEIGHT = 500 #At least 500 for window size
@@ -23,13 +22,7 @@ manager = pygame_gui.UIManager((WIDTH,HEIGHT))
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 time_delta = clock.tick(60)/1000.0
-            #manager.process_events(event)
-
-
-##UI Setup##
-uiElements = {"Position": [0,pygame_gui.elements.UILabel],
-              "Stats": [1,pygame_gui.elements.UILabel],
-              "Floor": [2,pygame_gui.elements.UILabel]}
+#manager.process_events(event)
 
 ##Initial Game Values##
 #Gets valid sizes for floors based on screen size
@@ -41,8 +34,9 @@ print(usableSizes)
 
 #Intializes global variables for tracking proogress
 floorLevel = 0
-enemiesDefeated = 0
-bossesDefeated = 0
+score = 0
+floorScore = 0
+scoreRecord = []
 
 #Set new player and floor
 p = Player.Player()
@@ -53,6 +47,15 @@ f.floorBase(screen, fHEIGHT)
 p.posGrid = f.startPos
 p.pos = f.floorMap[p.posGrid[0]][p.posGrid[1]].pos
 
+##UI Setup##
+# key: [x,y,text,UILabel]
+uiElements = [[0,0,'Score: ' + str(score),pygame_gui.elements.UILabel],
+              [0,1,'Pos: ' + str(p.pos),pygame_gui.elements.UILabel],
+              [0,2,'Floor: ' + str(floorLevel),pygame_gui.elements.UILabel],
+              [1,0,'HP: ' + str(p.HP),pygame_gui.elements.UILabel]
+              #[1,1,'Surrounding Tiles: ' + str(...),pygame_gui.elements.UILabel]
+              ]
+##Main Function##
 def main():
     running = True
     ##Calls sequence every frame##
@@ -61,22 +64,20 @@ def main():
         setUI()
         drawScreen()
         checkClear()
-        #print(p.pos)
-        #print(p.posGrid)
     pygame.quit()    
     pass
 
+##UI Functions##
 def setUI():
+    #Clears all UI elements 
+    manager.clear_and_reset()
     #Initializes UI elements
-    uiElements["Position"][1] = pygame_gui.elements.UILabel(text='Pos: ' + str(p.pos),
-                                                            relative_rect=pygame.Rect(((uiElements["Position"][0] * WIDTH/uiElements.__len__()), 0), (WIDTH/uiElements.__len__(), fHEIGHT)),
-                                                            manager=manager)
-    uiElements["Stats"][1] = pygame_gui.elements.UILabel(text=p.printStats(),
-                                                        relative_rect=pygame.Rect(((uiElements["Stats"][0] * WIDTH/uiElements.__len__()), 0), (WIDTH/uiElements.__len__(), fHEIGHT)),
-                                                        manager=manager)
-    uiElements["Floor"][1] = pygame_gui.elements.UILabel(text='Floor: ' + str(floorLevel),
-                                                        relative_rect=pygame.Rect(((uiElements["Floor"][0] * WIDTH/uiElements.__len__()), 0), (WIDTH/uiElements.__len__(), fHEIGHT)),
-                                                        manager=manager)        
+    for element in uiElements:
+        pygame_gui.elements.UILabel(text=element[2],
+                                    relative_rect=pygame.Rect(left_top=(element[0] * WIDTH/3,element[1]*fHEIGHT/2),
+                                                              width=WIDTH/3,
+                                                              height=fHEIGHT/2),
+                                    manager=manager)      
     pass
 
 def updateUI():
@@ -117,7 +118,7 @@ def checkClear():
         pass    
     pass
     
-
+##Input Function##
 def input():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

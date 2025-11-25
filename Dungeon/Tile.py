@@ -1,7 +1,7 @@
 #Tile Class and Methods
 
 import pygame as pg
-__TILES__ = ["Neutral", "Good","Lucky","Rest", "Bad", "Start", "End"] 
+#__TILES__ = ["Neutral", "Good","Lucky","Rest", "Bad", "Start", "End"] 
 
 class Tile:
     visible:bool
@@ -17,9 +17,7 @@ class Tile:
         self.active = True
         
     def setVisible(self):
-        self.visible = True 
-        
-    #def setShape():
+        self.visible = True
         
         
         
