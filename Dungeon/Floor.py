@@ -6,7 +6,7 @@ import Tile
 class Floor:
     #Variables
     size:int #Area of floor (size x size) should be multiple of square display
-    floorMap:list[list[Tile.Tile]] #List fo every tile on the map
+    floorMap:list[list[Tile.Tile]] #List of every tile on the map
     startPos = [int,int] #[y,x]
     endPos = [int,int] #[y,x]
     
@@ -35,11 +35,11 @@ class Floor:
                     t.active = True
                     t.color = "White"
                 else:
-                    randTile = random.randint(0,5)
+                    randTile = random.randint(0,6)
                     t.visible = False
                     t.active = True    
                     match randTile:
-                        #0 = Neutral, 1 = Good, 2 = Bad, 3 = Lucky, 4 = Super Lucky, 5 = Rest
+                        #0 = Neutral, 1 = Good, 2 = Bad, 3 = Lucky, 4 = Super Lucky, 5 = Unlucky, 6 = Rest
                         case 0:
                             t.type = "Neutral"
                             t.active = False    
@@ -56,9 +56,12 @@ class Floor:
                             t.type = "Lucky"
                             t.color = "Silver"
                         case 4:
-                            t.type = "Super Lucky"
+                            t.type = "S.Lucky"
                             t.color = "Gold"
                         case 5:
+                            t.type = "Unlucky"
+                            t.color = "Purple"
+                        case 6:
                             t.type = "Rest"
                             t.color = "Cyan"
                 t.pos = pg.Vector2((screen.get_width()/self.size) * col, (((screen.get_height() - yOff)/self.size) * row) + yOff)
