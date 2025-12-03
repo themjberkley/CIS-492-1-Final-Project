@@ -53,11 +53,11 @@ class Player:
         
         if tile.type == "Trap":
             hp_delta = -1
-            event = "Red tile dealt 1 HP of damage."
+            event = "Red; -1 HP."
         elif tile.type == "Heal":
             if self.HP < self.max_hp:
                 hp_delta = 1
-                event = "Light blue tile restored 1 HP."
+                event = "Light Blue; +1 HP."
             else:
                 event = "Already at full HP."
         
